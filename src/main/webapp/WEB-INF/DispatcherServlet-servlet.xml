@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:mvc="http://www.springframework.org/schema/mvc"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+    http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+
+  <mvc:annotation-driven />
+  <context:component-scan base-package="cl.test.presentacion" />
+
+  <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <property name="prefix" value="/WEB-INF/jsp/" />
+    <property name="suffix" value=".jsp" />
+  </bean>
+
+  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="ignoreResourceNotFound" value="true"/> <!-- filenotfound, otherwise it breaks -->
+    <property name="ignoreUnresolvablePlaceholders" value="false" /> <!-- ignoreUnresolvablePlaceholders set to true will ignore placeholders
+    that are not set and not throw an exception.  -->
+
+     <property name="locations"><!-- locations, varios value's -->
+        <list>
+             <!-- el ultimo gana y se toma el archivo complete (no hay fusion entre ellos) -->
+           <value>classpath:test.properties</value>
+           <value>file:/tmp/test.properties</value> <!-- variable based on OS -->
+
+            <value>classpath:servicios/properties/applications.properties</value>
+            <value>classpath:servicios/properties/osb11.properties</value>
+            <value>classpath:servicios/properties/osb12.properties</value>
+            <value>classpath:system.properties</value>
+         </list>
+     </property>
+  </bean>
+
+  <!--  bean id="valores" class="cl.test.Valor">
+    <property name="scheduled" value="${test.scheduled}" />
+  </bean -->
+
+</beans>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+		 						 http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+	<servlet>
+		<servlet-name>DispatcherServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+			<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<!-- /spring/webcontext -->
+			<param-value>
+				/WEB-INF/DispatcherServlet-servlet.xml
+			</param-value>
+		</init-param>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>DispatcherServlet</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+    <!--  context-param>
+        <param-name>isLog4jAutoInitializationDisabled</param-name>
+        <param-value>true</param-value>
+    </context-param -->
+    
+    <!-- mvc:interceptors>
+        <beans:bean class="cl.test.springmvc.handler.LogThreadIdHandler"></beans:bean>
+    </mvc:interceptors -->
+    
+
+
+    <!-- context-param>
+        <param-name>log4jContextName</param-name>
+        <param-value>spring-mvc-simple-32-nombre</param-value>
+    </context-param -->
+
+</web-app>

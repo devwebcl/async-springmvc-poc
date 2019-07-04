@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration monitorInterval="60">
+
+<!-- recordar:
+    
+    -DLog4jContextSelector=org.apache.logging.log4j.core.async.AsyncLoggerContextSelector -DAsyncLogger.RingBufferSize=128
+    
+ -->
+    <Appenders>
+        <!-- RollingFile: es el usado en CDN -->
+		<!-- RollingFile name="ejemplo-deadlock" fileName="/tmp/ejemplo-deadlock.log" filePattern="/tmp/ejemplo-deadlock-%d{yyyy-MM-dd}.log"
+		     immediateFlush="false" bufferSize="8192" >
+            <PatternLayout pattern="[%d{dd/MM/yyyy HH:mm:ss.SSS}] [%5p] [%c{1}.%M:%L] - %m%n" />
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+        </RollingFile -->
+        
+	    <!-- Async Loggers will auto-flush in batches, so switch off immediateFlush. -->
+	    <RollingRandomAccessFile name="ejemplo-deadlock" fileName="/tmp/ejemplo-deadlock2.log" filePattern="/tmp/ejemplo-deadlock2-%d{yyyy-MM-dd}.log"
+	                             immediateFlush="false" bufferSize="8192" >
+	      <PatternLayout pattern="[%d{dd/MM/yyyy HH:mm:ss.SSS}] [%5p] [%c{1}.%M:%L] - %m%n" />
+          <Policies>
+             <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+          </Policies>
+	    </RollingRandomAccessFile>
+    </Appenders>
+    
+    <Loggers>
+		<Logger additivity="false" level="INFO" name="cl.test">
+            <AppenderRef ref="ejemplo-deadlock"/>
+        </Logger>
+        
+        <!-- disruptor: -->
+        <Logger additivity="false" level="DEBUG" name="org.apache.logging.log4j.core">
+            <AppenderRef ref="ejemplo-deadlock"/>
+        </Logger>
+    </Loggers>
+    
+</Configuration>
+
